@@ -1,7 +1,7 @@
 package org.GodMode.TestManager.entities;
 
 
-import org.hibernate.mapping.Set;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,12 +10,12 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class Users {
 
     @Id
-    @GeneratedValue
-    @Column(name = "u_id")
+    @Column(name = "u_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long uId;
 
     @Column(name = "name")
@@ -30,8 +30,11 @@ public class Users {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "TestMarks")
+    @OneToMany(mappedBy = "users")
     private Set<TestMarks> testMarks;
+
+    @OneToMany(mappedBy = "users")
+    private Set<QuestionMarks> questionMarkses;
 
     public Long getuId() {
         return uId;
@@ -79,5 +82,13 @@ public class Users {
 
     public void setTestMarks(Set<TestMarks> testMarks) {
         this.testMarks = testMarks;
+    }
+
+    public Set<QuestionMarks> getQuestionMarkses() {
+        return questionMarkses;
+    }
+
+    public void setQuestionMarkses(Set<QuestionMarks> questionMarkses) {
+        this.questionMarkses = questionMarkses;
     }
 }

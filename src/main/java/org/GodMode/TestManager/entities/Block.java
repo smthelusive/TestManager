@@ -1,15 +1,15 @@
 package org.GodMode.TestManager.entities;
 
-import org.hibernate.mapping.Set;
+import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Block")
+@Table(name = "block")
 public class Block {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "b_id")
     private Long bId;
 
@@ -19,8 +19,8 @@ public class Block {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "TestsBlocks")
-    private Set testsBlocks;
+    @OneToMany(mappedBy = "block")
+    private Set<TestsBlocks> testsBlocks;
 
     public Long getbId() {
         return bId;

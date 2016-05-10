@@ -2,16 +2,16 @@ package org.GodMode.TestManager.dao.impl;
 
 import org.GodMode.TestManager.dao.Dao;
 import org.GodMode.TestManager.dao.utils.HibernateUtil;
-import org.GodMode.TestManager.entities.Questions;
+import org.GodMode.TestManager.entities.Users;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
- * Created by nataliia on 03.05.16.
+ * Created by ozinoviev on 5/4/2016.
  */
-public class QuestionsDaoImpl implements Dao<Questions, Long> {
+public class UsersDaoImpl implements Dao<Users, Long> {
 
     @Autowired
     HibernateUtil hibernateUtil;
@@ -19,19 +19,19 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
     @SuppressWarnings("unchecked")
     public List findAll() {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        List<Questions> questionsList = session.createQuery("FROM Questions").list();
+        List<Users> usersList = session.createQuery("FROM Users").list();
         session.close();
-        return questionsList;
+        return usersList;
     }
 
-    public Questions find(Long id) {
+    public Users find(Long id) {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        Questions questions = (Questions) session.get(Questions.class, id);
+        Users users = (Users) session.get(Users.class, id);
         session.close();
-        return questions;
+        return users;
     }
 
-    public void saveOrUpdate(Questions entry) {
+    public void saveOrUpdate(Users entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -40,7 +40,7 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
         session.close();
     }
 
-    public void delete(Questions entry) {
+    public void delete(Users entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();

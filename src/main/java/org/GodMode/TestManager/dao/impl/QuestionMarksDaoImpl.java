@@ -2,16 +2,16 @@ package org.GodMode.TestManager.dao.impl;
 
 import org.GodMode.TestManager.dao.Dao;
 import org.GodMode.TestManager.dao.utils.HibernateUtil;
-import org.GodMode.TestManager.entities.Questions;
+import org.GodMode.TestManager.entities.QuestionMarks;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
- * Created by nataliia on 03.05.16.
+ * Created by ozinoviev on 5/4/2016.
  */
-public class QuestionsDaoImpl implements Dao<Questions, Long> {
+public class QuestionMarksDaoImpl implements Dao<QuestionMarks, Long> {
 
     @Autowired
     HibernateUtil hibernateUtil;
@@ -19,19 +19,19 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
     @SuppressWarnings("unchecked")
     public List findAll() {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        List<Questions> questionsList = session.createQuery("FROM Questions").list();
+        List<QuestionMarks> questionMarksList = session.createQuery("FROM QuestionMarks").list();
         session.close();
-        return questionsList;
+        return questionMarksList;
     }
 
-    public Questions find(Long id) {
+    public QuestionMarks find(Long id) {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        Questions questions = (Questions) session.get(Questions.class, id);
+        QuestionMarks questionMarks = (QuestionMarks) session.get(QuestionMarks.class, id);
         session.close();
-        return questions;
+        return questionMarks;
     }
 
-    public void saveOrUpdate(Questions entry) {
+    public void saveOrUpdate(QuestionMarks entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -40,7 +40,7 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
         session.close();
     }
 
-    public void delete(Questions entry) {
+    public void delete(QuestionMarks entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -49,3 +49,4 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
         session.close();
     }
 }
+

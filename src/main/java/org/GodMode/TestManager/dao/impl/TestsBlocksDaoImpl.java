@@ -1,10 +1,10 @@
 package org.GodMode.TestManager.dao.impl;
 
 import org.GodMode.TestManager.dao.Dao;
+import org.GodMode.TestManager.dao.utils.HibernateUtil;
 import org.GodMode.TestManager.entities.TestsBlocks;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -13,22 +13,19 @@ import java.util.List;
  */
 public class TestsBlocksDaoImpl implements Dao<TestsBlocks, Long> {
 
-    private SessionFactory sessionFactory;
+    @Autowired
+    HibernateUtil hibernateUtil;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
+    @SuppressWarnings("unchecked")
     public List findAll() {
-        Session session = this.sessionFactory.openSession();
+        Session session = hibernateUtil.getSessionFactory().openSession();
         List<TestsBlocks> testsBlocksList = session.createQuery("FROM TestsBlocks").list();
         session.close();
         return testsBlocksList;
     }
 
     public TestsBlocks find(Long id) {
-        Session session = this.sessionFactory.openSession();
-        //need to check what is id? @Id or name of PK-column?
+        Session session = hibernateUtil.getSessionFactory().openSession();
         TestsBlocks testsBlocks = (TestsBlocks) session.get(TestsBlocks.class, id);
         session.close();
         return testsBlocks;
@@ -36,19 +33,19 @@ public class TestsBlocksDaoImpl implements Dao<TestsBlocks, Long> {
 
     public void saveOrUpdate(TestsBlocks entry) {
         if (entry == null) return;
-        Session session = this.sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = hibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         session.saveOrUpdate(entry);
-        transaction.commit();
+        session.getTransaction().commit();
         session.close();
     }
 
     public void delete(TestsBlocks entry) {
         if (entry == null) return;
-        Session session = this.sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = hibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
         session.delete(entry);
-        transaction.commit();
+        session.getTransaction().commit();
         session.close();
     }
 }

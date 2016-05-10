@@ -2,16 +2,19 @@ package org.GodMode.TestManager.dao.impl;
 
 import org.GodMode.TestManager.dao.Dao;
 import org.GodMode.TestManager.dao.utils.HibernateUtil;
-import org.GodMode.TestManager.entities.Questions;
+import org.GodMode.TestManager.entities.Answers;
+import org.GodMode.TestManager.entities.TestsBlocks;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 /**
- * Created by nataliia on 03.05.16.
+ * Created by ozinoviev on 5/4/2016.
  */
-public class QuestionsDaoImpl implements Dao<Questions, Long> {
+public class AnswersDaoImpl implements Dao<Answers, Long> {
 
     @Autowired
     HibernateUtil hibernateUtil;
@@ -19,19 +22,19 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
     @SuppressWarnings("unchecked")
     public List findAll() {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        List<Questions> questionsList = session.createQuery("FROM Questions").list();
+        List<Answers> answersList = session.createQuery("FROM Answers").list();
         session.close();
-        return questionsList;
+        return answersList;
     }
 
-    public Questions find(Long id) {
+    public Answers find(Long id) {
         Session session = hibernateUtil.getSessionFactory().openSession();
-        Questions questions = (Questions) session.get(Questions.class, id);
+        Answers answers = (Answers) session.get(Answers.class, id);
         session.close();
-        return questions;
+        return answers;
     }
 
-    public void saveOrUpdate(Questions entry) {
+    public void saveOrUpdate(Answers entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -40,7 +43,7 @@ public class QuestionsDaoImpl implements Dao<Questions, Long> {
         session.close();
     }
 
-    public void delete(Questions entry) {
+    public void delete(Answers entry) {
         if (entry == null) return;
         Session session = hibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
